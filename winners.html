@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Winners Display</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-purple-300 to-blue-200 min-h-screen p-8">
+
+    <div class="container mx-auto bg-white rounded-lg p-8 shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Winner Spotlight</h2>
+
+        <div class="flex flex-col md:flex-row items-center">
+            <img id="winnerPhoto" src="placeholder.jpg" alt="Winner Photo" class="w-48 h-48 rounded-full object-cover mr-4">
+
+            <div>
+                <p><span class="font-bold">Contest:</span> <span id="contestName"></span></p>
+                <p><span class="font-bold">Winner:</span> <span id="winnerName"></span></p>
+                <p><span class="font-bold">ID:</span> <span id="winnerId"></span></p>
+                <p><span class="font-bold">House:</span> <span id="winnerHouse"></span></p>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button onclick="prevWinner()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">&lt; Previous</button>
+            <button onclick="nextWinner()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Next &gt;</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        const winnersData = `
+| Contest Name                  | Winner Name | Winner ID | Winner House Name | Prize Position | Photo Filename | Age Group      | Category | Remarks |
+| ----------------------------- | ----------- | --------- | ----------------- | -------------- | -------------- | -------------- | -------- | ------- |
+| Thilawah                      | Aisha       | T101      | Green House       | 1              |                | Junior         | Girls    |         |
+| Thilawah                      | Omar        | T102      | Blue House        | 2              |                | Junior         | Boys     |         |
+| Hifz                          | Fatima      | H201      | Red House         | 1              |                | Junior         | Girls    |         |
+| Hifz                          | Ali         | H202      | Yellow House      | 2              |                | Senior         | Boys     |         |
+| Malayalam Elocution           | Sara        | M301      | Green House       | 1              |                | Senior         | Girls    |         |
+| English Elocution             | David       | E401      | Blue House        | 1              |                | Junior         | Boys     |         |
+| Malayalam Song                | Maria       | MS501     | Red House         | 1              |                | Senior         | Girls    |         |
+| Group Song Malayalam          | Team A      | GS601     | Yellow House      | 1              |                | Junior         | Boys     |         |
+| Malayalam Song (Senior)       | Joseph      | MS701     | Green House       | 1              |                | Senior         | Boys     |         |
+| Arabic Song                   | Layla       | A801      | Blue House        | 1              |                | Junior         | Girls    |         |
+| English Elocution             | Emily       | E901      | Red House         | 1              |                | Senior         | Girls    |         |
+| Malayalam Elocution           | Nikhil      | M1001     | Yellow House      | 1              |                | Senior         | Boys     |         |
+| Malayalam/English Elocution   | Sofia       | ME1101    | Green House       | 1              |                | Super Senior   | Girls    |         |
+| Nasheed                       | Yusuf       | N1201     | Blue House        | 1              |                | Kids           | Boys     |         |
+| Thilawah                      | Amina       | T1301     | Red House         | 1              |                | Senior         | Girls    |         |
+| Vattappattu                   | Kareem      | V1401     | Yellow House      | 1              |                | Kids           | Boys     |         |
+| Alfitrah                      | Group B     | AL1501    | Green House       | 1              |                | Boys and Girls | Mixed    |         |
+| Oppana                        | Team C      | OP1601    | Blue House        | 1              |                | Kids           | Girls    |         |
+| Mahir Al-Quran                | Zainab      | MA1701    | Red House         | 1              |                | Thahfeez       | Students |         |
+| Group Song Malayalam          | Team D      | GS1801    | Yellow House      | 1              |                | Junior         | Girls    |         |
+`;
+
+        const winners = [];
+        const rows = winnersData.trim().split('\n');
+        const headers = rows[0].split('|').map(h => h.trim());
+
+        for (let i = 2; i < rows.length; i++) {
+            const values = rows[i].split('|').map(v => v.trim());
+            const winner = {};
+            for (let j = 0; j < headers.length; j++) {
+                winner[headers[j]] = values[j];
+            }
+            winner["Photo Filename"] = winner["Winner ID"] ? winner["Winner ID"] + ".jpg" : "placeholder.jpg";
+            winners.push(winner);
+        }
+
+        let currentWinner = 0;
+
+        function updateDisplay() {
+            const winner = winners[currentWinner];
+            document.getElementById('contestName').textContent = winner["Contest Name"];
+            document.getElementById('winnerName').textContent = winner["Winner Name"];
+            document.getElementById('winnerId').textContent = winner["Winner ID"];
+            document.getElementById('winnerHouse').textContent = winner["Winner House Name"];
+            const photoFilename = winner["Photo Filename"];
+            document.getElementById('winnerPhoto').src = photoFilename.startsWith("http") ? photoFilename : "photos/" + photoFilename;
+        }
+
+        function nextWinner() {
+            currentWinner = (currentWinner + 1) % winners.length;
+            updateDisplay();
+        }
+
+        function prevWinner() {
+            currentWinner = (currentWinner - 1 + winners.length) % winners.length;
+            updateDisplay();
+        }
+
+        updateDisplay(); // Initial display
+    </script>
+</body>
+</html>
