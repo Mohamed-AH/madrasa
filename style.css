@@ -1,112 +1,27 @@
-/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600&display=swap');
+
 body {
-    margin: 0;
-    overflow: hidden; /* Prevent overall page scrolling */
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-.container {
-    max-width: 1920px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+h1 {
+    font-family: 'Bangers', cursive;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.title-section {
-    text-align: center;
-    padding: 2rem 0;
+.winner-card {
+    transition: all 0.3s ease;
 }
 
-.main-title {
-    font-size: 4rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.sub-title {
-    font-size: 2.5rem;
-    color: #666;
-}
-
-.event-card {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
-    margin-bottom: 2rem;
-    width: 80%;
-    max-width: 900px;
-}
-
-.event-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #333;
-    text-align: center;
-}
-
-.winner-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid #eee;
-}
-
-.winner-row:last-child {
-    border-bottom: none;
+.winner-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .winner-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    margin-right: 1rem;
+    transition: all 0.3s ease;
 }
 
-.winner-details {
-    flex-grow: 1;
-}
-
-.winner-rank {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #555;
-    margin-right: 1rem;
-    width: 40px;
-    text-align: center;
-}
-
-.winner-name {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .event-card {
-        width: 95%;
-        padding: 1rem;
-    }
-
-    .winner-photo {
-        width: 60px;
-        height: 60px;
-    }
-
-    .winner-rank {
-        font-size: 1.2rem;
-    }
-
-    .winner-name {
-        font-size: 1rem;
-    }
+.winner-card:hover .winner-photo {
+    transform: rotate(5deg);
 }
